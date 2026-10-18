@@ -1,0 +1,35 @@
+{
+  "skill_name": "implement-plan",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "implement ticket 42. Plan docs/tickets/plan/42-add-login-rate-limit.md Trạng thái 'Đã duyệt', đang ở branch fix/42-login-rate-limit.",
+      "expected_output": "Viết test tái hiện trước và chạy cho thấy fail đúng lý do, sau đó mới sửa code theo từng bước plan, chạy test chuyển sang pass. Không commit, không push. Cuối cùng báo kết quả test thật và gợi ý verify 42.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "implement ticket 42, plan còn Trạng thái 'Chờ duyệt'.",
+      "expected_output": "Dừng, nói plan chưa được duyệt và hỏi có duyệt/tiếp tục không. Không sửa code.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "làm theo plan ticket 42. (Khi viết test fail đầu tiên, test lại pass ngay vì bug đã được sửa ở commit khác.)",
+      "expected_output": "Phát hiện test pass ngay, dừng và báo plan có thể sai/bug đã được sửa; không sửa code tiếp.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "implement 42. Giữa chừng phát hiện hàm RateLimiter mà plan nói tái dùng không tồn tại, và cần sửa thêm file middleware ngoài danh sách.",
+      "expected_output": "Dừng, nêu lý do lệch plan và hỏi bằng AskUserQuestion: cập nhật plan rồi tiếp tục / quay lại plan cũ / dừng. Không tự ý sửa file ngoài plan.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "implement 42. Tôi comment trên hunk: 'dùng 429 chứ không phải 403'. Plan ghi 403.",
+      "expected_output": "Áp dụng chỉ đạo ngay vào đúng hunk, chạy lại test liên quan, và ghi điểm lệch vào mục 'Ghi chú lệch plan' trong file plan.",
+      "files": []
+    }
+  ]
+}

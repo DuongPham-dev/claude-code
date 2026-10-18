@@ -1,0 +1,35 @@
+{
+  "skill_name": "plan-ticket",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "lập plan cho ticket 42. File docs/tickets/analyze/42-add-login-rate-limit.md đã có, Trạng thái 'Đã làm rõ'.",
+      "expected_output": "Đọc file phân tích, đọc codebase, ghi docs/tickets/plan/42-add-login-rate-limit.md đúng khung template (có nguyên nhân gốc hoặc mục tiêu, cách tái hiện, các bước với bước 1 là test, file ảnh hưởng, rủi ro, ngoài phạm vi), rồi vào plan mode xin duyệt bằng ExitPlanMode. Không sửa code, không commit.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "plan issue 87 đi.",
+      "expected_output": "Không tìm thấy docs/tickets/analyze/87-*.md, nói rõ và đề nghị chạy analyze-ticket 87 trước. Không tự phân tích ticket thay, không viết plan.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "lập plan cho ticket 55. File phân tích có Trạng thái 'Đang chờ làm rõ' và câu Blocker số 1 chưa có câu trả lời.",
+      "expected_output": "Dừng, liệt kê câu Blocker chưa trả lời và nhờ người dùng trả lời trước. Không đọc codebase để đoán, không ghi file plan.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "plan lại ticket 42, đã có docs/tickets/plan/42-add-login-rate-limit.md từ lần trước.",
+      "expected_output": "Phát hiện file plan đã tồn tại, hỏi bằng AskUserQuestion: cập nhật / tạo bản mới / hủy. Không ghi đè im lặng.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "plan ticket 42, plan được duyệt rồi thì làm luôn đi.",
+      "expected_output": "Sau khi plan được duyệt, đổi Trạng thái thành 'Đã duyệt', báo đường dẫn và gợi ý implement-plan 42, nhưng không tự implement hay sửa code.",
+      "files": []
+    }
+  ]
+}

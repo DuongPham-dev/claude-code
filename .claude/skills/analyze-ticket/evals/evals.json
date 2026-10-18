@@ -1,0 +1,35 @@
+{
+  "skill_name": "analyze-ticket",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "phân tích giúp mình ticket này nhé, issue #42 của repo (gh đang chưa login nên mình dán nội dung luôn):\n\nTitle: Thêm rate limit cho endpoint đăng nhập\nBody: Hiện tại /api/login không giới hạn số lần thử. Cần giới hạn tối đa 5 lần thử sai trong 15 phút theo mỗi IP, vượt quá trả 429 kèm header Retry-After. Acceptance: có unit test, không ảnh hưởng người dùng đăng nhập đúng.\nComments: (không có)",
+      "expected_output": "File docs/tickets/analyze/42-add-login-rate-limit.md bằng tiếng Việt, đủ các section theo template (không có 'What it implies'), không đọc codebase và không có đường dẫn file code. Câu hỏi ít vì ticket khá rõ (ví dụ: IP sau proxy tính thế nào, đếm theo IP hay theo tài khoản, thử sai là gì). Dừng sau khi báo cáo, không commit.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "analyze issue #87 giúp mình. Nội dung: \"Title: Cải thiện trang báo cáo\\nBody: Trang báo cáo chậm và khó dùng, làm cho nó tốt hơn. Khách hàng đang phàn nàn.\"",
+      "expected_output": "File docs/tickets/analyze/87-improve-report-page.md; ticket mơ hồ nên mục 'Chỗ mơ hồ / mâu thuẫn / thiếu' liệt kê rõ (không có acceptance criteria, 'chậm' và 'khó dùng' chưa định nghĩa) và có nhiều câu Blocker (chậm ở đâu, 'khó dùng' nghĩa là gì, tiêu chí hoàn thành). Không bịa chi tiết về hệ thống và không đọc code.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "phân tích lại ticket #42 (thêm rate limit login) đi, mình có thêm comment mới: \"Cần whitelist IP nội bộ 10.0.0.0/8\". Nội dung gốc như lần trước.",
+      "expected_output": "Skill phát hiện file docs/tickets/analyze/42-*.md đã tồn tại và hỏi người dùng trước khi ghi đè (cập nhật / bản mới / hủy), không ghi đè im lặng. Nếu chọn cập nhật thì giữ nguyên mục 'Câu trả lời' đã có.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "phân tích issue #55 giúp mình, dán nội dung luôn:\n\nTitle: Export báo cáo ra CSV\nBody: Thêm nút export CSV ở trang báo cáo, xuất toàn bộ dữ liệu đang hiển thị. Acceptance: file mở được bằng Excel.\nComments:\n- (PM) Bỏ nút export, thay bằng gửi file qua email hằng tuần.\n- (Dev) Vậy phần Excel có còn áp dụng không?",
+      "expected_output": "File docs/tickets/analyze/55-export-report-csv.md. Mục What it asks ghi yêu cầu mới nhất theo comment của PM (gửi email hằng tuần) và nói rõ nó đến từ comment. Mục mâu thuẫn chỉ ra body (nút export) xung đột với comment, và acceptance 'mở được bằng Excel' không còn rõ. Có câu Blocker về việc thay thế hay bổ sung nút export.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "analyze issue #61. gh đã login, repo hiện tại có issue này. Nội dung ticket nhắc 'tiếp theo của #58, dùng cùng cơ chế thông báo'. Hãy đọc giúp.",
+      "expected_output": "Skill lấy ticket #61 bằng gh, đọc issue #58 đúng một cấp và chỉ tóm tắt title + ý chính vào dòng 'Issue liên kết' hoặc làm bối cảnh, không đọc đệ quy theo các issue mà #58 nhắc tới. Không đọc codebase để tìm 'cơ chế thông báo'; nếu #58 không mô tả rõ thì đưa thành câu hỏi.",
+      "files": []
+    }
+  ]
+}

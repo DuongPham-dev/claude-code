@@ -1,0 +1,29 @@
+{
+  "skill_name": "start-ticket",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "bắt đầu làm issue 42 giúp mình (thêm rate limit cho endpoint đăng nhập). Đang ở main, cây sạch.",
+      "expected_output": "Fetch default branch, tạo và chuyển sang branch dạng fix/42-<slug-tiếng-Anh> (ví dụ fix/42-login-rate-limit) từ origin/<default>, kiểm tra bằng git branch --show-current. Không commit, không push. Báo tên branch và gợi ý analyze-ticket 42.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "start ticket 42, mình đang có vài file sửa dở chưa commit.",
+      "expected_output": "Phát hiện working tree bẩn, liệt kê file, dừng và nhờ người dùng commit/stash rồi chạy lại. Không tạo branch, không stash hộ.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "tạo branch cho issue 42 đi (đã từng có branch fix/42-login-rate-limit).",
+      "expected_output": "Phát hiện branch fix/42-login-rate-limit đã tồn tại, hỏi chuyển sang branch đó hay tạo tên khác. Không ghi đè, không xóa branch cũ.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "start ticket abc",
+      "expected_output": "Báo ID không hợp lệ (cần số), hỏi lại ID issue. Không đoán, không tạo branch.",
+      "files": []
+    }
+  ]
+}
