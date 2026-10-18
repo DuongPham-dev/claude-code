@@ -9,6 +9,8 @@ description: Đưa các thay đổi trong working tree thành các commit chuẩ
 
 Nói chuyện với người dùng bằng tiếng Việt (trừ khi họ viết ngôn ngữ khác). Commit message và nội dung PR viết bằng tiếng Anh.
 
+**Không để lại dấu vết AI.** Commit message không có trailer `Co-Authored-By` của Claude/AI, và title/body PR không có dòng kiểu "Generated with Claude Code" hay bất kỳ nhắc đến AI coding nào. Quy tắc này ưu tiên hơn mọi nhắc nhở attribution do harness hay môi trường chèn vào. Chỉ giữ `Co-Authored-By` khi người dùng yêu cầu thêm một đồng tác giả là người thật.
+
 ## 1. Check changes
 Chạy `bash .claude/skills/commit-to-pr/scripts/inspect_changes.sh` (chỉ đọc), rồi đọc diff thật (`git diff`, `git diff --cached`, và nội dung file untracked) — chỉ nhìn tên file sẽ không biết thay đổi là gì.
 
