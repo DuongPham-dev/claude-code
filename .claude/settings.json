@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "UserPromptExpansion": [
+      {
+        "matcher": "commit-to-pr",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/check-changes.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
