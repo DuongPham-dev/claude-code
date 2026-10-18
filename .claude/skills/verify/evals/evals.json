@@ -1,0 +1,29 @@
+{
+  "skill_name": "verify",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "verify ticket 42, implement xong rồi. Repo dùng pnpm, có script test, lint, build.",
+      "expected_output": "Dò lệnh theo package.json và lockfile pnpm, chạy test riêng của ticket rồi test đầy đủ, lint, build; ghi docs/tickets/verify/42.md với lệnh, exit code và kết quả thật. Không sửa code, không commit. Pass hết thì gợi ý commit-to-pr.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "chạy test cho ticket 42 xem sao. (Một test trong bộ đầy đủ đang fail.)",
+      "expected_output": "Ghi đúng kết quả Fail vào file verify kèm trích lỗi, dừng và báo kiểm tra nào fail. Không sửa test hay code, không gợi ý bỏ qua; hỏi có muốn quay lại implement-plan không.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "verify 42. Repo này không có package.json, Makefile hay cấu hình test nào.",
+      "expected_output": "Không tìm được lệnh test nào, dừng và hỏi người dùng lệnh đúng. Không tự bịa lệnh, không báo 'ổn'.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "verify 42 lại lần nữa, đã có docs/tickets/verify/42.md từ lần trước.",
+      "expected_output": "Chạy lại toàn bộ kiểm tra, ghi đè file bằng kết quả mới nhất và nhắc rõ trong báo cáo là đã thay kết quả cũ.",
+      "files": []
+    }
+  ]
+}

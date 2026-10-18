@@ -1,0 +1,23 @@
+{
+  "skill_name": "commit-to-pr",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "mình vừa sửa xong login (thêm validate email), refactor lại file utils/date.js và update README. commit rồi mở PR giúp mình",
+      "expected_output": "Lên kế hoạch 2-3 commit riêng (feat/refactor/docs), hiển thị để xác nhận, soạn PR có Why/What/How to test, dừng ở bước duyệt trước khi push.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "fix typo trong README rồi tạo PR",
+      "expected_output": "Một commit docs duy nhất, description PR ngắn gọn, chờ người dùng duyệt trước khi push và tạo draft PR.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "commit changes và open PR (đang đứng ở main)",
+      "expected_output": "Nhận ra đang ở default branch, dừng lại và yêu cầu người dùng chuyển branch; không tạo branch, không commit, không push.",
+      "files": []
+    }
+  ]
+}
