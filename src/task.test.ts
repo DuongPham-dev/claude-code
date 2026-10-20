@@ -76,11 +76,51 @@ describe("TaskList", () => {
     expect(second.list()).toEqual([]);
   });
 
-  it("does not validate the title", () => {
+  it("ignores leading and trailing whitespace in the title", () => {
     const tasks = new TaskList();
 
-    tasks.add("");
+    expect(tasks.add("  Buy milk  ").title).toBe("Buy milk");
+    expect(tasks.add("\t\nBuy eggs\n").title).toBe("Buy eggs");
+    expect(tasks.add("Buy  bread").title).toBe("Buy  bread");
+    expect(tasks.list().map((t) => t.title)).toEqual([
+      "Buy milk",
+      "Buy eggs",
+      "Buy  bread",
+    ]);
+  });
 
-    expect(tasks.list()).toHaveLength(1);
+  it.each(["", "   ", "\t\n"])("rejects the empty title %j", (title) => {
+    const tasks = new TaskList();
+
+    expect(() => tasks.add(title)).toThrow("Title is required");
+    expect(tasks.list()).toEqual([]);
+  });
+
+  it("rejects a title that is not a string", () => {
+    const tasks = new TaskList();
+
+    expect(() => tasks.add(undefined as unknown as string)).toThrow(
+      "Title is required",
+    );
+    expect(tasks.list()).toEqual([]);
+  });
+
+  it("keeps two tasks with the same title as separate tasks", () => {
+    const tasks = new TaskList();
+
+    const first = tasks.add("Buy milk");
+    const second = tasks.add("Buy milk");
+
+    expect(tasks.list()).toHaveLength(2);
+    expect(first.id).not.toBe(second.id);
+  });
+
+  it("returns the new task including its identifier", () => {
+    const tasks = new TaskList();
+
+    const created = tasks.add("Buy milk");
+
+    expect(created.id.length).toBeGreaterThan(0);
+    expect(tasks.list()).toEqual([created]);
   });
 });
