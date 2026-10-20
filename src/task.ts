@@ -7,8 +7,23 @@ export interface Task {
   readonly createdAt: string;
 }
 
+export type TaskFilter = "all" | "done" | "not-done";
+
+const TASK_FILTERS: readonly TaskFilter[] = ["all", "done", "not-done"];
+
+export class TaskNotFoundError extends Error {
+  constructor(id: string) {
+    super(`Task not found: ${id}`);
+    this.name = "TaskNotFoundError";
+  }
+}
+
 export class TaskList {
-  private readonly tasks: Task[] = [];
+  private readonly tasks: Task[];
+
+  constructor(initial: readonly Task[] = []) {
+    this.tasks = initial.map((task) => ({ ...task }));
+  }
 
   add(title: string): Task {
     const task: Task = {
@@ -21,7 +36,22 @@ export class TaskList {
     return { ...task };
   }
 
-  list(): readonly Task[] {
-    return this.tasks.map((task) => ({ ...task }));
+  list(filter: TaskFilter = "all"): readonly Task[] {
+    if (!TASK_FILTERS.includes(filter)) {
+      throw new Error(
+        `Unknown filter "${filter}"; expected one of: ${TASK_FILTERS.join(", ")}`,
+      );
+    }
+    return this.tasks
+      .filter((task) => filter === "all" || task.done === (filter === "done"))
+      .map((task) => ({ ...task }));
+  }
+
+  get(id: string): Task {
+    const task = this.tasks.find((candidate) => candidate.id === id);
+    if (!task) {
+      throw new TaskNotFoundError(id);
+    }
+    return { ...task };
   }
 }
