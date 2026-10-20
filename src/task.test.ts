@@ -1,4 +1,4 @@
-import { TaskList } from "./task";
+import { Task, TaskFilter, TaskList, TaskNotFoundError } from "./task";
 
 describe("TaskList", () => {
   it("starts empty", () => {
@@ -122,5 +122,80 @@ describe("TaskList", () => {
 
     expect(created.id.length).toBeGreaterThan(0);
     expect(tasks.list()).toEqual([created]);
+  });
+});
+
+describe("TaskList viewing", () => {
+  const makeTask = (id: string, title: string, done: boolean): Task => ({
+    id,
+    title,
+    done,
+    createdAt: `2026-10-20T00:00:0${id}.000Z`,
+  });
+  const seeded = () =>
+    new TaskList([
+      makeTask("1", "A", false),
+      makeTask("2", "B", true),
+      makeTask("3", "C", false),
+    ]);
+  const titles = (tasks: readonly Task[]) => tasks.map((t) => t.title);
+
+  it("lists all tasks in creation order by default and for \"all\"", () => {
+    expect(titles(seeded().list())).toEqual(["A", "B", "C"]);
+    expect(titles(seeded().list("all"))).toEqual(["A", "B", "C"]);
+  });
+
+  it("lists only done tasks", () => {
+    expect(titles(seeded().list("done"))).toEqual(["B"]);
+  });
+
+  it("lists only not-done tasks in creation order", () => {
+    expect(titles(seeded().list("not-done"))).toEqual(["A", "C"]);
+  });
+
+  it("returns an empty result for an empty list under every filter", () => {
+    const tasks = new TaskList();
+
+    expect(tasks.list()).toEqual([]);
+    expect(tasks.list("done")).toEqual([]);
+    expect(tasks.list("not-done")).toEqual([]);
+  });
+
+  it("returns an empty result when no task matches the filter", () => {
+    const tasks = new TaskList();
+    tasks.add("A");
+
+    expect(tasks.list("done")).toEqual([]);
+  });
+
+  it("rejects an unknown filter", () => {
+    expect(() => seeded().list("bogus" as TaskFilter)).toThrow(/all, done, not-done/);
+  });
+
+  it("looks up a task by id", () => {
+    expect(seeded().get("2")).toEqual(makeTask("2", "B", true));
+  });
+
+  it("throws a task not found error for an unknown or empty id", () => {
+    const tasks = seeded();
+
+    expect(() => tasks.get("missing")).toThrow(TaskNotFoundError);
+    expect(() => tasks.get("missing")).toThrow(/missing/);
+    expect(() => tasks.get("")).toThrow(TaskNotFoundError);
+  });
+
+  it("does not change the list when viewing or looking up", () => {
+    const tasks = seeded();
+    const before = tasks.list();
+
+    tasks.list("done");
+    tasks.list("not-done");
+    tasks.get("1");
+    const [first] = tasks.list();
+    (first as { title: string }).title = "changed";
+    tasks.get("1").title;
+
+    expect(tasks.list()).toEqual(before);
+    expect(tasks.get("1").title).toBe("A");
   });
 });
