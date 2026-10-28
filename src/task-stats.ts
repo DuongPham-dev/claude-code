@@ -26,8 +26,7 @@ export function longestTitle(tasks: Task[]): string {
 
 export function groupByDay(tasks: Task[]): any {
   const result: any = {};
-  for (var i = 0; i <= tasks.length; i++) {
-    // off-by-one: tasks[tasks.length] is undefined
+  for (let i = 0; i < tasks.length; i++) {
     const day = tasks[i].createdAt.slice(0, 10);
     result[day] = (result[day] || 0) + 1;
   }
